@@ -1,1 +1,577 @@
+:root {
+    --background: #faf7f3;
+    --surface: #ffffff;
+    --primary: #9b5c63;
+    --primary-dark: #7f464d;
+    --secondary: #e8c9c6;
+    --text: #3d3030;
+    --text-light: #8b7b7b;
+    --border: #eee3df;
+    --tag-background: #f7e9e7;
 
+    --radius-small: 12px;
+    --radius-medium: 18px;
+    --radius-large: 28px;
+
+    --shadow: 0 8px 25px rgba(70, 40, 40, 0.07);
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    min-height: 100vh;
+
+    background: var(--background);
+    color: var(--text);
+
+    font-family: "DM Sans", sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    padding: 22px 20px;
+}
+
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.brand-icon {
+    color: var(--primary);
+    font-size: 30px;
+    line-height: 1;
+}
+
+
+.brand h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+
+.brand p {
+    margin-top: 4px;
+
+    color: var(--text-light);
+
+    font-size: 11px;
+    letter-spacing: 0.3px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+    padding: 0 20px 50px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    position: relative;
+
+    padding: 30px 5px 25px;
+}
+
+
+.hero-decoration {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--primary);
+    font-size: 16px;
+}
+
+
+.hero h2 {
+    font-family: "Playfair Display", serif;
+
+    font-size: 34px;
+    font-weight: 600;
+
+    line-height: 1.15;
+
+    letter-spacing: -0.5px;
+}
+
+
+.hero p {
+    max-width: 430px;
+
+    margin-top: 14px;
+
+    color: var(--text-light);
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-section {
+    margin-bottom: 28px;
+}
+
+
+.search-box {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: 54px;
+
+    padding: 0 17px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-medium);
+
+    box-shadow: var(--shadow);
+}
+
+
+.search-icon {
+    margin-right: 10px;
+
+    color: var(--text-light);
+
+    font-size: 25px;
+}
+
+
+.search-box input {
+    flex: 1;
+
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: var(--text);
+
+    font-family: inherit;
+    font-size: 14px;
+}
+
+
+.search-box input::placeholder {
+    color: #b1a4a4;
+}
+
+
+/* =========================
+   FILTERS
+========================= */
+
+.filters-section {
+    margin-bottom: 30px;
+}
+
+
+.section-title {
+    margin-bottom: 13px;
+}
+
+
+.section-title h3,
+.recipes-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+.category-filters {
+    display: flex;
+
+    gap: 8px;
+
+    overflow-x: auto;
+
+    padding-bottom: 5px;
+
+    scrollbar-width: none;
+}
+
+
+.category-filters::-webkit-scrollbar {
+    display: none;
+}
+
+
+.category-button {
+    flex-shrink: 0;
+
+    padding: 9px 14px;
+
+    border: 1px solid var(--border);
+    border-radius: 50px;
+
+    background: var(--surface);
+
+    color: var(--text-light);
+
+    cursor: pointer;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+
+    transition: 0.2s ease;
+}
+
+
+.category-button:hover {
+    border-color: var(--secondary);
+}
+
+
+.category-button.active {
+    border-color: var(--primary);
+
+    background: var(--primary);
+
+    color: white;
+}
+
+
+/* =========================
+   RECIPES
+========================= */
+
+.recipes-section {
+    margin-top: 10px;
+}
+
+
+.recipes-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+}
+
+
+.recipes-header span {
+    color: var(--text-light);
+
+    font-size: 12px;
+}
+
+
+.recipes-grid {
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.recipe-card {
+    overflow: hidden;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-large);
+
+    box-shadow: var(--shadow);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.recipe-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 12px 30px rgba(70, 40, 40, 0.1);
+}
+
+
+.recipe-image {
+    position: relative;
+
+    width: 100%;
+    height: 210px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f0dfdc,
+            #ead0cd
+        );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.recipe-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+.recipe-placeholder {
+    color: white;
+
+    font-size: 45px;
+}
+
+
+.recipe-content {
+    padding: 17px;
+}
+
+
+.recipe-category {
+    display: inline-block;
+
+    margin-bottom: 7px;
+
+    color: var(--primary);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+}
+
+
+.recipe-title {
+    font-family: "Playfair Display", serif;
+
+    font-size: 22px;
+    font-weight: 600;
+
+    line-height: 1.2;
+}
+
+
+.recipe-description {
+    margin-top: 7px;
+
+    color: var(--text-light);
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+.recipe-tags {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 5px;
+
+    margin-top: 12px;
+}
+
+
+.recipe-tag {
+    padding: 5px 8px;
+
+    background: var(--tag-background);
+
+    border-radius: 7px;
+
+    color: var(--primary-dark);
+
+    font-size: 10px;
+}
+
+
+.recipe-footer {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 16px;
+}
+
+
+.recipe-status {
+    color: #6d8a69;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+.recipe-link {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 9px 13px;
+
+    background: var(--primary);
+
+    border-radius: 10px;
+
+    color: white;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+
+.recipe-link:hover {
+    background: var(--primary-dark);
+}
+
+
+/* =========================
+   LOADING / EMPTY
+========================= */
+
+.loading,
+.empty-state {
+    grid-column: 1 / -1;
+
+    padding: 50px 20px;
+
+    text-align: center;
+
+    color: var(--text-light);
+}
+
+
+.loading span {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--primary);
+
+    font-size: 30px;
+}
+
+
+.loading p,
+.empty-state p {
+    font-size: 13px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    padding: 30px 20px 40px;
+
+    text-align: center;
+
+    color: var(--text-light);
+
+    font-size: 11px;
+}
+
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 700px) {
+
+    .header {
+        padding: 30px 30px;
+    }
+
+
+    .main {
+        padding: 0 30px 70px;
+    }
+
+
+    .hero {
+        padding: 50px 5px 35px;
+    }
+
+
+    .hero h2 {
+        font-size: 48px;
+    }
+
+
+    .hero p {
+        font-size: 15px;
+    }
+
+
+    .recipes-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (min-width: 1000px) {
+
+    .recipes-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+}
