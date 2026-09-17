@@ -250,11 +250,63 @@ function createRecipeCard(recipe) {
         );
 
 
-    const tested =
-        recipeTests.some(test =>
-            String(test.Status).toLowerCase() ===
-            'testada'
-        );
+    const testedTests = recipeTests.filter(test =>
+        String(test.Status).toLowerCase() === 'testada'
+    );
+
+    const testsHTML = testedTests.length
+    ? `
+        <div class="recipe-tests">
+
+            ${testedTests.map(test => {
+
+                const person = test.Pessoa || '';
+                const observation = test.Observação || '';
+                const nota = Number(test.Nota) || 0;
+
+                const stars = Array.from(
+                    { length: 5 },
+                    (_, index) =>
+                        index < nota ? '★' : '☆'
+                ).join('');
+
+                return `
+                    <div class="recipe-test">
+
+                        <div class="recipe-test-header">
+
+                            <span class="recipe-test-person">
+                                ${escapeHTML(person)}
+                            </span>
+
+                            <span class="recipe-test-rating">
+                                ${stars}
+                            </span>
+
+                        </div>
+
+                        ${
+                            observation
+                                ? `
+                                    <p class="recipe-test-observation">
+                                        “${escapeHTML(observation)}”
+                                    </p>
+                                `
+                                : ''
+                        }
+
+                    </div>
+                `;
+
+            }).join('')}
+
+        </div>
+    `
+    : `
+        <span class="recipe-status">
+            ♡ Ainda não testada
+        </span>
+    `;
 
 
     const image = recipe.Imagem
