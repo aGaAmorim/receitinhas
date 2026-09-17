@@ -566,6 +566,62 @@ body {
 
 }
 
+.recipe-tests {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+}
+
+.recipe-test {
+    padding: 8px 0;
+}
+
+.recipe-test + .recipe-test {
+    border-top: 1px dashed var(--border);
+}
+
+.recipe-test-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.recipe-test-person {
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.recipe-test-rating {
+    color: #c58b45;
+    font-size: 12px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.recipe-test-observation {
+    margin-top: 4px;
+    color: var(--text-light);
+    font-size: 11px;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+.recipe-not-tested {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    color: var(--text-light);
+    font-size: 11px;
+}
+
+.tested-label {
+    color: #6d8a69;
+    font-size: 11px;
+    font-weight: 600;
+}
+
 
 @media (min-width: 1000px) {
 
