@@ -1,3 +1,4 @@
+```javascript
 const API_URL = 'https://script.google.com/macros/s/AKfycbw1-ppJgG5_hSUUnoNQSjwj5OluAqXaZl3augQeOYmlgnYWHQrOCCpBxdLRucwIgUs7Sw/exec';
 
 let recipes = [];
@@ -15,6 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+
+/* =========================
+   CARREGAR DADOS DA API
+========================= */
 
 async function loadData() {
 
@@ -67,6 +72,7 @@ function createCategoryFilters() {
 
     container.innerHTML = `
         <button
+            type="button"
             class="category-button active"
             data-category="Todas"
         >
@@ -78,6 +84,8 @@ function createCategoryFilters() {
 
         const button =
             document.createElement('button');
+
+        button.type = 'button';
 
         button.className = 'category-button';
 
@@ -165,6 +173,14 @@ function getFilteredRecipes() {
             recipe.Categoria === selectedCategory;
 
 
+        /*
+         * A pesquisa procura em:
+         * - nome da receita
+         * - categoria
+         * - tags
+         * - descrição
+         */
+
         const searchableText = [
             recipe.Receita,
             recipe.Categoria,
@@ -189,7 +205,7 @@ function getFilteredRecipes() {
 
 
 /* =========================
-   RENDER
+   RENDER DAS RECEITAS
 ========================= */
 
 function renderRecipes() {
@@ -236,12 +252,18 @@ function renderRecipes() {
 
 
 /* =========================
-   CARD
+   CARD DA RECEITA
 ========================= */
 
 function createRecipeCard(recipe) {
 
-    const tags = parseTags(recipe.Tags);
+    const tags =
+        parseTags(recipe.Tags);
+
+
+    /* =========================
+       TESTES DA RECEITA
+    ========================= */
 
     const recipeTests =
         tests.filter(test =>
@@ -250,96 +272,157 @@ function createRecipeCard(recipe) {
         );
 
 
-    const testedTests = recipeTests.filter(test =>
-        String(test.Status).toLowerCase() === 'testada'
-    );
+    /*
+     * Pegamos somente os testes
+     * cujo status é "Testada".
+     */
 
-    const testsHTML = testedTests.length
-    ? `
-        <div class="recipe-tests">
-
-            ${testedTests.map(test => {
-
-                const person = test.Pessoa || '';
-                const observation = test.Observação || '';
-                const nota = Number(test.Nota) || 0;
-
-                const stars = Array.from(
-                    { length: 5 },
-                    (_, index) =>
-                        index < nota ? '★' : '☆'
-                ).join('');
-
-                return `
-                    <div class="recipe-test">
-
-                        <div class="recipe-test-header">
-
-                            <span class="recipe-test-person">
-                                ${escapeHTML(person)}
-                            </span>
-
-                            <span class="recipe-test-rating">
-                                ${stars}
-                            </span>
-
-                        </div>
-
-                        ${
-                            observation
-                                ? `
-                                    <p class="recipe-test-observation">
-                                        “${escapeHTML(observation)}”
-                                    </p>
-                                `
-                                : ''
-                        }
-
-                    </div>
-                `;
-
-            }).join('')}
-
-        </div>
-    `
-    : `
-        <span class="recipe-status">
-            ♡ Ainda não testada
-        </span>
-    `;
+    const testedTests =
+        recipeTests.filter(test =>
+            String(test.Status).toLowerCase() ===
+            'testada'
+        );
 
 
-    const image = recipe.Imagem
-        ? `
-            <img
-                src="${escapeAttribute(recipe.Imagem)}"
-                alt="${escapeAttribute(recipe.Receita)}"
-                loading="lazy"
-            >
-        `
-        : `
-            <span class="recipe-placeholder">
-                ♡
-            </span>
-        `;
+    /* =========================
+       TESTES - HTML
+    ========================= */
 
+    const testsHTML =
+        testedTests.length
+            ? `
+                <div class="recipe-tests">
+
+                    ${testedTests.map(test => {
+
+                        const person =
+                            test.Pessoa || '';
+
+                        const observation =
+                            test.Observação || '';
+
+                        const nota =
+                            Number(test.Nota) || 0;
+
+
+                        /*
+                         * Cria 5 estrelas.
+                         *
+                         * Exemplo:
+                         * Nota 5 = ★★★★★
+                         * Nota 4 = ★★★★☆
+                         * Nota 3 = ★★★☆☆
+                         */
+
+                        const stars =
+                            Array.from(
+                                { length: 5 },
+                                (_, index) =>
+                                    index < nota
+                                        ? '★'
+                                        : '☆'
+                            ).join('');
+
+
+                        return `
+                            <div class="recipe-test">
+
+                                <div class="recipe-test-header">
+
+                                    <span class="recipe-test-person">
+                                        ${escapeHTML(person)}
+                                    </span>
+
+                                    <span class="recipe-test-rating">
+                                        ${stars}
+                                    </span>
+
+                                </div>
+
+
+                                ${
+                                    observation
+                                        ? `
+                                            <p class="recipe-test-observation">
+                                                “${escapeHTML(observation)}”
+                                            </p>
+                                        `
+                                        : ''
+                                }
+
+                            </div>
+                        `;
+
+                    }).join('')}
+
+                </div>
+            `
+            : `
+                <div class="recipe-not-tested">
+                    ♡ Ainda não testada
+                </div>
+            `;
+
+
+    /* =========================
+       IMAGEM
+    ========================= */
+
+    const image =
+        recipe.Imagem
+            ? `
+                <img
+                    src="${escapeAttribute(recipe.Imagem)}"
+                    alt="${escapeAttribute(recipe.Receita)}"
+                    loading="lazy"
+                >
+            `
+            : `
+                <span class="recipe-placeholder">
+                    ♡
+                </span>
+            `;
+
+
+    /* =========================
+       TAGS
+    ========================= */
 
     const tagsHTML =
         tags
             .map(tag =>
-                `<span class="recipe-tag">#${escapeHTML(tag)}</span>`
+                `
+                    <span class="recipe-tag">
+                        #${escapeHTML(tag)}
+                    </span>
+                `
             )
             .join('');
 
 
+    /* =========================
+       CARD COMPLETO
+    ========================= */
+
     return `
         <article class="recipe-card">
 
+
+            <!-- IMAGEM -->
+
             <div class="recipe-image">
+
                 ${image}
+
             </div>
 
+
+            <!-- CONTEÚDO -->
+
             <div class="recipe-content">
+
+
+                <!-- CATEGORIA -->
 
                 ${
                     recipe.Categoria
@@ -352,10 +435,14 @@ function createRecipeCard(recipe) {
                 }
 
 
+                <!-- NOME -->
+
                 <h4 class="recipe-title">
                     ${escapeHTML(recipe.Receita)}
                 </h4>
 
+
+                <!-- DESCRIÇÃO -->
 
                 ${
                     recipe.Descrição
@@ -368,6 +455,8 @@ function createRecipeCard(recipe) {
                 }
 
 
+                <!-- TAGS -->
+
                 ${
                     tagsHTML
                         ? `
@@ -379,15 +468,25 @@ function createRecipeCard(recipe) {
                 }
 
 
+                <!-- TESTES -->
+
+                ${testsHTML}
+
+
+                <!-- RODAPÉ -->
+
                 <div class="recipe-footer">
 
-                    <span class="recipe-status">
-                        ${
-                            tested
-                                ? '✓ Testada'
-                                : '♡ Ainda não testada'
-                        }
-                    </span>
+
+                    ${
+                        testedTests.length
+                            ? `
+                                <span class="tested-label">
+                                    ✓ Testada
+                                </span>
+                            `
+                            : ''
+                    }
 
 
                     ${
@@ -405,7 +504,9 @@ function createRecipeCard(recipe) {
                             : ''
                     }
 
+
                 </div>
+
 
             </div>
 
@@ -477,3 +578,4 @@ function escapeAttribute(value) {
     return escapeHTML(value);
 
 }
+```
