@@ -266,8 +266,8 @@ function createRecipeCard(recipe) {
 
     const recipeTests =
         tests.filter(test =>
-            String(test['ID Receita']) ===
-            String(recipe.ID)
+            String(test['Id Receita']) ===
+            String(recipe.Id)
         );
 
 
