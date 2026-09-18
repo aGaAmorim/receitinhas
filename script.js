@@ -369,20 +369,25 @@ function createRecipeCard(recipe) {
        IMAGEM
     ========================= */
 
-    const image =
-        recipe.Imagem
-            ? `
-                <img
-                    src="${escapeAttribute(recipe.Imagem)}"
-                    alt="${escapeAttribute(recipe.Receita)}"
-                    loading="lazy"
-                >
-            `
-            : `
-                <span class="recipe-placeholder">
-                    ♡
-                </span>
-            `;
+    const imageUrl =
+    recipe.Imagem
+        ? `https://drive.google.com/thumbnail?id=${recipe.Imagem}&sz=w1000`
+        : '';
+
+const image =
+    imageUrl
+        ? `
+            <img
+                src="${escapeAttribute(imageUrl)}"
+                alt="${escapeAttribute(recipe.Receita)}"
+                loading="lazy"
+            >
+        `
+        : `
+            <span class="recipe-placeholder">
+                ♡
+            </span>
+        `;
 
 
     /* =========================
