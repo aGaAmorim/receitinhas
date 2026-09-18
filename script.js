@@ -1,4 +1,3 @@
-```javascript
 const API_URL = 'https://script.google.com/macros/s/AKfycbw1-ppJgG5_hSUUnoNQSjwj5OluAqXaZl3augQeOYmlgnYWHQrOCCpBxdLRucwIgUs7Sw/exec';
 
 let recipes = [];
@@ -578,4 +577,3 @@ function escapeAttribute(value) {
     return escapeHTML(value);
 
 }
-```
