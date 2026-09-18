@@ -622,6 +622,240 @@ body {
     font-weight: 600;
 }
 
+/* =========================
+   TEMA ESPECIAL DE NATAL
+========================= */
+
+body.christmas-theme {
+    --background: #f7f3ed;
+    --surface: #fffdf9;
+    --primary: #a63d3d;
+    --primary-dark: #7f2929;
+    --secondary: #d9e4d7;
+    --text: #3b302c;
+    --text-light: #82756f;
+    --border: #e6ddd3;
+    --tag-background: #edf2e9;
+}
+
+
+/* =========================
+   CABEÇALHO DE NATAL
+========================= */
+
+body.christmas-theme .header {
+    background:
+        linear-gradient(
+            135deg,
+            #7d302f,
+            #9f4543
+        );
+}
+
+
+body.christmas-theme .brand-icon {
+    color: #f4dfb5;
+}
+
+
+body.christmas-theme .brand h1 {
+    color: #fffaf3;
+}
+
+
+body.christmas-theme .brand p {
+    color: #ead9d0;
+}
+
+
+/* =========================
+   HERO DE NATAL
+========================= */
+
+body.christmas-theme .hero {
+    background:
+        linear-gradient(
+            135deg,
+            #eef3ea,
+            #f8f3ec
+        );
+}
+
+
+body.christmas-theme .hero-decoration {
+    color: #a63d3d;
+}
+
+
+body.christmas-theme .hero h2 {
+    color: #7d302f;
+}
+
+
+/* =========================
+   BOTÕES DE CATEGORIA
+========================= */
+
+body.christmas-theme
+.category-button.active {
+
+    background: #a63d3d;
+    border-color: #a63d3d;
+    color: #ffffff;
+
+}
+
+
+body.christmas-theme
+.category-button:hover {
+
+    border-color: #a63d3d;
+    color: #a63d3d;
+
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+body.christmas-theme .recipe-card {
+
+    border-color: #e4dbd1;
+
+}
+
+
+body.christmas-theme .recipe-category {
+
+    color: #7d302f;
+
+}
+
+
+body.christmas-theme .recipe-tag {
+
+    background: #edf2e9;
+    color: #557052;
+
+}
+
+
+body.christmas-theme .recipe-link {
+
+    color: #a63d3d;
+
+}
+
+
+body.christmas-theme .tested-label {
+
+    color: #557052;
+
+}
+
+
+/* =========================
+   NEVE
+========================= */
+
+.snow-container {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 9999;
+
+    overflow: hidden;
+
+}
+
+
+.snowflake {
+
+    position: absolute;
+
+    top: -20px;
+
+    color: #ffffff;
+
+    line-height: 1;
+
+    animation-name: snow-fall;
+
+    animation-timing-function: linear;
+
+    animation-iteration-count: infinite;
+
+    text-shadow:
+        0 0 3px rgba(255, 255, 255, 0.8);
+
+}
+
+
+@keyframes snow-fall {
+
+    0% {
+
+        transform:
+            translate3d(0, -20px, 0)
+            rotate(0deg);
+
+    }
+
+    25% {
+
+        transform:
+            translate3d(12px, 25vh, 0)
+            rotate(90deg);
+
+    }
+
+    50% {
+
+        transform:
+            translate3d(-10px, 50vh, 0)
+            rotate(180deg);
+
+    }
+
+    75% {
+
+        transform:
+            translate3d(15px, 75vh, 0)
+            rotate(270deg);
+
+    }
+
+    100% {
+
+        transform:
+            translate3d(-8px, 110vh, 0)
+            rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================
+   NATAL NO MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .snowflake {
+
+        animation-duration:
+            8s;
+
+    }
+
+}
+
 
 @media (min-width: 1000px) {
 
