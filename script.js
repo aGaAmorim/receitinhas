@@ -131,6 +131,8 @@ function selectCategory(category) {
 
         });
 
+    updateSeasonalTheme(category);
+
     renderRecipes();
 
 }
@@ -555,6 +557,110 @@ function showError() {
 
 }
 
+/* =========================
+   TEMA ESPECIAL DE NATAL
+========================= */
+
+function updateSeasonalTheme(category) {
+
+    const isChristmas =
+        String(category).toLowerCase() ===
+        'especial de natal';
+
+
+    document.body.classList.toggle(
+        'christmas-theme',
+        isChristmas
+    );
+
+
+    if (isChristmas) {
+
+        createSnow();
+
+    } else {
+
+        removeSnow();
+
+    }
+
+}
+
+
+/* =========================
+   NEVE
+========================= */
+
+function createSnow() {
+
+    if (document.getElementById('snowContainer')) {
+        return;
+    }
+
+
+    const snowContainer =
+        document.createElement('div');
+
+    snowContainer.id =
+        'snowContainer';
+
+    snowContainer.className =
+        'snow-container';
+
+
+    for (let i = 0; i < 45; i++) {
+
+        const snowflake =
+            document.createElement('span');
+
+        snowflake.className =
+            'snowflake';
+
+        snowflake.textContent = '•';
+
+
+        snowflake.style.left =
+            `${Math.random() * 100}%`;
+
+        snowflake.style.animationDuration =
+            `${6 + Math.random() * 8}s`;
+
+        snowflake.style.animationDelay =
+            `${Math.random() * 8}s`;
+
+        snowflake.style.fontSize =
+            `${5 + Math.random() * 7}px`;
+
+        snowflake.style.opacity =
+            `${0.35 + Math.random() * 0.5}`;
+
+
+        snowContainer.appendChild(
+            snowflake
+        );
+
+    }
+
+
+    document.body.appendChild(
+        snowContainer
+    );
+
+}
+
+
+function removeSnow() {
+
+    const snowContainer =
+        document.getElementById('snowContainer');
+
+    if (snowContainer) {
+
+        snowContainer.remove();
+
+    }
+
+}
 
 /* =========================
    SEGURANÇA
