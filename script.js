@@ -21,13 +21,36 @@ document.addEventListener('DOMContentLoaded', () => {
 ========================= */
 
 async function loadData() {
+    const CACHE_KEY = 'receitinhas_data';
+    const CACHE_TIME = 5 * 60 * 1000; // 5 minutos
 
     try {
+        const cachedData = localStorage.getItem(CACHE_KEY);
+
+        if (cachedData) {
+            const parsedCache = JSON.parse(cachedData);
+
+            const isValid =
+                Date.now() - parsedCache.timestamp <
+                CACHE_TIME;
+
+            if (isValid) {
+                recipes = parsedCache.data.receitas || [];
+                tests = parsedCache.data.testes || [];
+
+                createCategoryFilters();
+                renderRecipes();
+
+                return;
+            }
+        }
 
         const response = await fetch(API_URL);
 
         if (!response.ok) {
-            throw new Error('Não foi possível acessar a API.');
+            throw new Error(
+                'Não foi possível acessar a API.'
+            );
         }
 
         const data = await response.json();
@@ -35,18 +58,47 @@ async function loadData() {
         recipes = data.receitas || [];
         tests = data.testes || [];
 
-        createCategoryFilters();
+        localStorage.setItem(
+            CACHE_KEY,
+            JSON.stringify({
+                timestamp: Date.now(),
+                data: data
+            })
+        );
 
+        createCategoryFilters();
         renderRecipes();
 
     } catch (error) {
-
         console.error(error);
 
+        // Se a API falhar, tenta usar o cache antigo
+        const cachedData =
+            localStorage.getItem(CACHE_KEY);
+
+        if (cachedData) {
+            try {
+                const parsedCache =
+                    JSON.parse(cachedData);
+
+                recipes =
+                    parsedCache.data.receitas || [];
+
+                tests =
+                    parsedCache.data.testes || [];
+
+                createCategoryFilters();
+                renderRecipes();
+
+                return;
+
+            } catch (cacheError) {
+                console.error(cacheError);
+            }
+        }
+
         showError();
-
     }
-
 }
 
 
